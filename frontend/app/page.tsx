@@ -261,7 +261,7 @@ export default function LandingPage() {
               </a>
             </nav>
             <nav>
-              <a href="/chat">
+              <a href="/sign-in">
                 <button className="rounded-full border border-cyan-400/30 px-4 py-2 text-xs font-medium text-cyan-100 transition hover:bg-cyan-400/10 hover:shadow-[0_0_24px_rgba(34,211,238,0.22)]">
                   Launch App
                 </button>
@@ -298,13 +298,13 @@ export default function LandingPage() {
               </div>
 
               <div className="buttons mt-8 flex flex-wrap gap-4">
-                <a href="/chat">
+                <a href="/sign-in">
                   <button className="start_chatting rounded-full bg-linear-to-r from-cyan-400 to-sky-400 px-6 py-3 text-sm font-bold text-slate-950 shadow-[0_0_35px_rgba(34,211,238,0.45)] transition hover:-translate-y-0.5 hover:shadow-[0_0_50px_rgba(34,211,238,0.65)]">
                     Start Chatting
                   </button>
                 </a>
 
-                <a href="https://github.com" target="_blank" rel="noreferrer">
+                <a href="https://github.com/nishchup489-afk/chatterlite" target="_blank" rel="noreferrer">
                   <button className="view_github rounded-full border border-cyan-400/25 bg-cyan-400/3 px-6 py-3 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-400/10">
                     View GitHub →
                   </button>
@@ -560,7 +560,7 @@ export default function LandingPage() {
             </div>
 
             <div className="launch_buttons mt-8 flex flex-wrap justify-center gap-4">
-              <a href="/chat">
+              <a href="/sign-in">
                 <button className="cyan-button rounded-full bg-linear-to-r from-cyan-400 to-sky-400 px-7 py-3 text-sm font-bold text-slate-950 shadow-[0_0_35px_rgba(34,211,238,0.45)] transition hover:-translate-y-0.5 hover:shadow-[0_0_50px_rgba(34,211,238,0.65)]">
                   Launch App
                 </button>
