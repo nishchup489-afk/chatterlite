@@ -118,16 +118,76 @@ class WebsocketManager:
         self.redis = redis
 
 
-# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% start websocket manager
 
     async def start(self) -> None :
 
         if self._started:
             return 
         
-        if self.redis is not None:
+        if self.redis is  None:
             if self.require_redis:
                 raise RuntimeError("Redis is required, but no redis client was provided")
+            
+            logger.warning(
+                "WebSocketManager started without Redis. "
+                "Only local WebSocket delivery will work."
+            )
+
+            self._started = True 
+            return 
+        
+        try:
+            await self.redis.ping() 
+        except Exception :
+            logger.exception("WebSocketManager could not ping Redis.")
+
+            if self.require_redis:
+                raise 
+
+            self.redis = None 
+            self._started = True 
+            return
+        
+        self._redis_listener_task = asyncio.create_task(
+            self._listen_to_redis() , 
+            name="chatterlite-websocket-redis-listener"
+        )
+
+        self._started = True 
+
+        logger.info(
+            "WebSocketManager started. instance_id=%s redis_channel=%s",
+            self.instance_id,
+            self.redis_channel,
+        )
+        
+
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% stop websocket manager
+
+    async def stop(self) -> None:
+        """
+        Stop the WebSocket manager.
+
+        Important:
+        This does not close Redis.
+        Redis is owned by app/core/redis.py.
+        """
+
+        if self._redis_listener_task is not None:
+            self._redis_listener_task.cancel() 
+
+            try:
+                await self._redis_listener_task 
+            except asyncio.CancelledError:
+                pass 
+
+            self._redis_listener_task = None 
+
+        self._started = False 
+
+        logger.info("WebSocketManager stopped")
 
 
     
