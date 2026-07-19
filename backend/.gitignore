@@ -1,0 +1,25 @@
+# Environment variables
+.env
+
+# Poetry virtual environment
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+
+# Testing and tooling
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
