@@ -29,6 +29,10 @@ class Settings(BaseSettings):
     api_v1_prefix : str = "/api/v1"
 
 
+
+    database_url : str
+
+
     cors_origin : list[str] = [
         "http://localhost:3000",
         "http://127.0.0.1:3000"

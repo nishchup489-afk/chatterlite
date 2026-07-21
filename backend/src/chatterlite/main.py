@@ -7,6 +7,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from chatterlite.core.config import get_settings
 from chatterlite.api.router import api_router
 
+from chatterlite.core.database import close_database
+
 
 @asynccontextmanager
 async def lifespan(_:FastAPI) -> AsyncIterator[None]:
@@ -14,6 +16,7 @@ async def lifespan(_:FastAPI) -> AsyncIterator[None]:
     #startup
     yield 
     #shutdown 
+    await close_database()
 
 
 def create_application() -> FastAPI:
