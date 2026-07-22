@@ -12,6 +12,7 @@
 import uuid
 
 from sqlalchemy import UUID, Boolean, Column, DateTime, Enum, ForeignKey, UniqueConstraint, func
+from sqlalchemy.orm import relationship
 
 from chatterlite.models.base import Base
 from chatterlite.models.enums import MemberRole
@@ -31,3 +32,7 @@ class ConversationMember(Base):
     is_muted = Column(Boolean , default=False , nullable=False)
     joined_at = Column(DateTime(timezone=True) , default=func.now() , nullable=False)
     left_at = Column(DateTime(timezone=True) , nullable=True)
+
+    conversation = relationship("Conversation" , back_populates="memberships" , foreign_keys=[conversation_id])
+    user = relationship("User" , back_populates="memberships" , foreign_keys=[user_id])
+    last_read_message = relationship("Message" , foreign_keys=[last_read_message_id])

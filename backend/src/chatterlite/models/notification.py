@@ -14,6 +14,7 @@
 import uuid
 
 from sqlalchemy import UUID, Boolean, Column, DateTime, Enum, ForeignKey, String, func
+from sqlalchemy.orm import relationship
 
 from chatterlite.models.base import Base
 from chatterlite.models.enums import NotificationType
@@ -33,3 +34,8 @@ class Notification(Base):
     is_read = Column(Boolean , default=False , nullable=False)
     created_at = Column(DateTime(timezone=True) , default=func.now() , nullable=False)
     read_at = Column(DateTime(timezone=True) , nullable=True)
+
+    recipient = relationship("User" , back_populates="received_notifications" , foreign_keys=[recipient_id])
+    actor = relationship("User" , back_populates="acted_notifications" , foreign_keys=[actor_id])
+    conversation = relationship("Conversation" , back_populates="notifications" , foreign_keys=[conversation_id])
+    message = relationship("Message" , back_populates="notifications" , foreign_keys=[message_id])
