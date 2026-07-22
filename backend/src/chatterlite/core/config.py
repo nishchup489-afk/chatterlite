@@ -32,6 +32,8 @@ class Settings(BaseSettings):
 
     database_url : str
 
+    redis_url : str
+
 
     cors_origin : list[str] = [
         "http://localhost:3000",

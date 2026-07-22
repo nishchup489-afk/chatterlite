@@ -1,5 +1,4 @@
-from sqlalchemy import Enum
-
+from enum import Enum
 
 class ConversationType(str , Enum):
     DIRECT = "direct"
